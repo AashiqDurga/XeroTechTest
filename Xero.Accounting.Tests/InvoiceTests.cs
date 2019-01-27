@@ -21,5 +21,30 @@ namespace Xero.Accounting.Tests
 
             Assert.Single(invoice.LineItems);
         }
+        
+        [Fact]
+        public void GivenAnInvoiceWithItemsWhenAnItemIsDeletedThenRemoveItFromTheInvoice()
+        {
+            var invoice = new Invoice();
+
+            invoice.AddInvoiceLine(new InvoiceLine
+            {
+                InvoiceLineId = 1,
+                Cost = 5.21,
+                Quantity = 1,
+                Description = "Orange"
+            });
+
+            invoice.AddInvoiceLine(new InvoiceLine
+            {
+                InvoiceLineId = 2,
+                Cost = 10.99,
+                Quantity = 4,
+                Description = "Banana"
+            });
+
+            invoice.RemoveInvoiceLine(1);
+            Assert.Single(invoice.LineItems);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace XeroTechnicalTest
 {
@@ -9,7 +10,7 @@ namespace XeroTechnicalTest
         {
             LineItems = new List<InvoiceLine>();
         }
-        
+
         public int InvoiceNumber { get; set; }
         public DateTime InvoiceDate { get; set; }
 
@@ -20,9 +21,10 @@ namespace XeroTechnicalTest
             LineItems.Add(invoiceLine);
         }
 
-        public void RemoveInvoiceLine(int SOMEID)
+        public void RemoveInvoiceLine(int invoiceLineId)
         {
-            throw new NotImplementedException();
+            var itemToRemove = LineItems.Single(x => x.InvoiceLineId == invoiceLineId);
+            LineItems.Remove(itemToRemove);
         }
 
         /// <summary>
