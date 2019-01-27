@@ -32,7 +32,15 @@ namespace XeroTechnicalTest
         /// </summary>
         public decimal GetTotal()
         {
-            throw new NotImplementedException();
+            double invoiceTotal = 0;
+            foreach (var invoiceLineItem in LineItems)
+            {
+                var invoiceLineTotal = invoiceLineItem.Cost * invoiceLineItem.Quantity;
+
+                invoiceTotal = invoiceTotal + invoiceLineTotal;
+            }
+
+            return (decimal) invoiceTotal;
         }
 
         /// <summary>
