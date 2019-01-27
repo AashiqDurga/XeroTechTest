@@ -32,7 +32,7 @@ namespace XeroTechnicalTest
         {
             Console.WriteLine("Welcome to Xero Tech Test!");
 
-//            CreateInvoiceWithOneIte();
+            CreateInvoiceWithOneItem();
             CreateInvoiceWithMultipleItemsAndQuantities();
             RemoveItem();
             MergeInvoices();
@@ -46,7 +46,7 @@ namespace XeroTechnicalTest
 
             invoice.AddInvoiceLine(new InvoiceLine()
             {
-                InvoiceLineId = Convert.ToInt32("1"),
+                InvoiceLineId = 1,
                 Cost = 6.99,
                 Quantity = 1,
                 Description = "Apple"

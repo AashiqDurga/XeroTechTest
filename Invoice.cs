@@ -5,6 +5,11 @@ namespace XeroTechnicalTest
 {
     public class Invoice
     {
+        public Invoice()
+        {
+            LineItems = new List<InvoiceLine>();
+        }
+        
         public int InvoiceNumber { get; set; }
         public DateTime InvoiceDate { get; set; }
 
