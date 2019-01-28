@@ -1,3 +1,4 @@
+using FluentAssertions;
 using XeroTechnicalTest;
 using Xunit;
 
@@ -74,7 +75,7 @@ namespace Xero.Accounting.Tests
         }
 
         [Fact]
-        public void GivenTwoInvoicesWhenGenenratingThenMergeTheInvoices()
+        public void GivenTwoInvoicesWhenGeneratingThenMergeTheInvoices()
         {
             var invoice = new Invoice();
 
@@ -128,6 +129,33 @@ namespace Xero.Accounting.Tests
                     Assert.Equal(3, elem3.Quantity);
                     Assert.Equal("Blueberries", elem3.Description);
                 });
+        }
+
+        [Fact]
+        public void GivenAnInvoiceWhenRequiredToMakeACopyThenCloneTheInvoice()
+        {
+            var invoice = new Invoice();
+
+            invoice.AddInvoiceLine(new InvoiceLine
+            {
+                InvoiceLineId = 1,
+                Cost = 6.99,
+                Quantity = 1,
+                Description = "Apple"
+            });
+
+            invoice.AddInvoiceLine(new InvoiceLine
+            {
+                InvoiceLineId = 2,
+                Cost = 6.27,
+                Quantity = 3,
+                Description = "Blueberries"
+            });
+
+            var clonedInvoice = (Invoice) invoice.Clone();
+            
+            clonedInvoice.Should().BeEquivalentTo(invoice);
+            Assert.Equal(invoice.LineItems.Count, clonedInvoice.LineItems.Count);
         }
     }
 }

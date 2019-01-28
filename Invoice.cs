@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace XeroTechnicalTest
 {
-    public class Invoice
+    public class Invoice : ICloneable
     {
         public Invoice()
         {
@@ -55,9 +55,9 @@ namespace XeroTechnicalTest
         /// <summary>
         /// Creates a deep clone of the current invoice (all fields and properties)
         /// </summary>
-        public Invoice Clone()
+        public object Clone()
         {
-            throw new NotImplementedException();
+            return MemberwiseClone();
         }
 
         /// <summary>

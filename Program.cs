@@ -36,7 +36,7 @@ namespace XeroTechnicalTest
             CreateInvoiceWithMultipleItemsAndQuantities();
             RemoveItem();
             MergeInvoices();
-//            CloneInvoice();
+            CloneInvoice();
 //            InvoiceToString();
         }
 
@@ -164,7 +164,7 @@ namespace XeroTechnicalTest
                 Description = "Blueberries"
             });
 
-            var clonedInvoice = invoice.Clone();
+            var clonedInvoice = (Invoice)invoice.Clone();
             Console.WriteLine(clonedInvoice.GetTotal());
         }
 
