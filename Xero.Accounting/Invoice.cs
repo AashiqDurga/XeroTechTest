@@ -51,7 +51,7 @@ namespace Xero.Accounting
             var invoiceSting = new StringBuilder();
 
             invoiceSting.Append($"InvoiceNumber: {Number}, ");
-            invoiceSting.Append($"InvoiceDate: {Date:d}, ");
+            invoiceSting.Append($"InvoiceDate: {Date:dd/MM/yyyy}, ");
             invoiceSting.Append($"LineItemCount: {LineItems.Count}");
 
             return invoiceSting.ToString();

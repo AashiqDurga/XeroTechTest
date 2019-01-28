@@ -137,7 +137,7 @@ namespace Xero.Accounting.Tests
                 }
             };
 
-            const string expectedInvoiceString = "InvoiceNumber: 1000, InvoiceDate: 01/28/2019, LineItemCount: 1";
+            const string expectedInvoiceString = "InvoiceNumber: 1000, InvoiceDate: 28/01/2019, LineItemCount: 1";
 
             Assert.Equal(expectedInvoiceString, invoice.ToString());
         }
