@@ -28,9 +28,6 @@ namespace Xero.Accounting
             LineItems.Remove(itemToRemove);
         }
 
-        /// <summary>
-        /// GetTotal should return the sum of (Cost * Quantity) for each line item
-        /// </summary>
         public decimal GetTotal()
         {
             double invoiceTotal = 0;
@@ -44,36 +41,25 @@ namespace Xero.Accounting
             return (decimal) invoiceTotal;
         }
 
-        /// <summary>
-        /// MergeInvoices appends the items from the sourceInvoice to the current invoice
-        /// </summary>
-        /// <param name="sourceInvoice">Invoice to merge from</param>
         public void MergeInvoices(Invoice sourceInvoice)
         {
             LineItems.AddRange(sourceInvoice.LineItems);
         }
 
-        /// <summary>
-        /// Creates a deep clone of the current invoice (all fields and properties)
-        /// </summary>
         public object Clone()
         {
             return MemberwiseClone();
         }
 
-        /// <summary>
-        /// Outputs string containing the following (replace [] with actual values):
-        /// Invoice Number: [InvoiceNumber], InvoiceDate: [DD/MM/YYYY], LineItemCount: [Number of items in LineItems] 
-        /// </summary>
         public override string ToString()
         {
-            var sting = new StringBuilder();
+            var invoiceSting = new StringBuilder();
 
-            sting.Append($"InvoiceNumber: {InvoiceNumber}, ");
-            sting.Append($"InvoiceDate: {InvoiceDate:d}, ");
-            sting.Append($"LineItemCount: {LineItems.Count}");
+            invoiceSting.Append($"InvoiceNumber: {InvoiceNumber}, ");
+            invoiceSting.Append($"InvoiceDate: {InvoiceDate:d}, ");
+            invoiceSting.Append($"LineItemCount: {LineItems.Count}");
 
-            return sting.ToString();
+            return invoiceSting.ToString();
         }
     }
 }
