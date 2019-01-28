@@ -9,103 +9,75 @@ namespace Xero.Accounting.Tests
     public class InvoiceTests
     {
         private readonly Invoice _invoice;
+        private readonly InvoiceLine _appleLineItem;
+        private readonly InvoiceLine _bananaLineItem;
+        private readonly InvoiceLine _orangeLineItem;
 
         public InvoiceTests()
         {
             _invoice = new Invoice();
-        }
-
-        [Fact]
-        public void GivenAnInvoiceWhenGeneratingThenAddAnInvoiceLine()
-        {
-            var invoiceLine = new InvoiceLine
+            _appleLineItem = new InvoiceLine
             {
                 InvoiceLineId = 1,
                 Cost = 6.99m,
                 Quantity = 1,
                 Description = "Apple"
             };
-            _invoice.AddLineItem(invoiceLine);
+            _bananaLineItem = new InvoiceLine
+            {
+                InvoiceLineId = 1,
+                Cost = 10.99m,
+                Quantity = 4,
+                Description = "Banana"
+            };
+            _orangeLineItem = new InvoiceLine
+            {
+                InvoiceLineId = 2,
+                Cost = 5.21m,
+                Quantity = 1,
+                Description = "Orange"
+            };
+        }
 
-            Assert.Single(_invoice.LineItems);
+        [Fact]
+        public void GivenAnInvoiceWhenGeneratingThenAddAnInvoiceLine()
+        {
+            _invoice.AddLineItem(_appleLineItem);
+
+            var expectedLineItems = new List<InvoiceLine> {_appleLineItem};
+            _invoice.LineItems.Should().BeEquivalentTo(expectedLineItems);
         }
 
         [Fact]
         public void GivenAnInvoiceWithItemsWhenAnItemIsDeletedThenRemoveItFromTheInvoice()
         {
-            _invoice.AddLineItem(new InvoiceLine
-            {
-                InvoiceLineId = 1,
-                Cost = 5.21m,
-                Quantity = 1,
-                Description = "Orange"
-            });
-
-            _invoice.AddLineItem(new InvoiceLine
-            {
-                InvoiceLineId = 2,
-                Cost = 10.99m,
-                Quantity = 4,
-                Description = "Banana"
-            });
+            _invoice.AddLineItem(_bananaLineItem);
+            _invoice.AddLineItem(_orangeLineItem);
 
             _invoice.RemoveLineItemBy(1);
-            Assert.Single(_invoice.LineItems);
-            Assert.Equal(2, _invoice.LineItems.First().InvoiceLineId);
+
+            var expectedLineItems = new List<InvoiceLine> {_orangeLineItem};
+            _invoice.LineItems.Should().BeEquivalentTo(expectedLineItems);
         }
 
         [Fact]
         public void GivenAnInvoiceWithItemsWhenGeneratingTheInvoiceThenCalculateTheTotal()
         {
-            _invoice.AddLineItem(new InvoiceLine
-            {
-                InvoiceLineId = 1,
-                Cost = 5.21m,
-                Quantity = 1,
-                Description = "Orange"
-            });
-
-            _invoice.AddLineItem(new InvoiceLine
-            {
-                InvoiceLineId = 2,
-                Cost = 10.99m,
-                Quantity = 4,
-                Description = "Banana"
-            });
-
+            _invoice.AddLineItem(_bananaLineItem);
+            _invoice.AddLineItem(_orangeLineItem);
 
             var total = _invoice.Total();
-            Assert.Equal(49.17m, total);
+
+            var expectedTotal = 49.17m;
+            Assert.Equal(expectedTotal, total);
         }
 
         [Fact]
         public void GivenTwoInvoicesWhenGeneratingThenMergeTheInvoices()
         {
-            _invoice.AddLineItem(new InvoiceLine
-            {
-                InvoiceLineId = 1,
-                Cost = 10.33m,
-                Quantity = 4,
-                Description = "Banana"
-            });
+            _invoice.AddLineItem(_bananaLineItem);
 
-            var invoiceToMerge = new Invoice();
-
-            invoiceToMerge.AddLineItem(new InvoiceLine
-            {
-                InvoiceLineId = 2,
-                Cost = 5.22m,
-                Quantity = 1,
-                Description = "Orange"
-            });
-
-            invoiceToMerge.AddLineItem(new InvoiceLine
-            {
-                InvoiceLineId = 3,
-                Cost = 6.27m,
-                Quantity = 3,
-                Description = "Blueberries"
-            });
+            var invoiceToMerge = CreateInvoiceToMerge();
 
             _invoice.MergeInvoicesFrom(invoiceToMerge);
 
@@ -113,14 +85,14 @@ namespace Xero.Accounting.Tests
                 lineItemOne =>
                 {
                     Assert.Equal(1, lineItemOne.InvoiceLineId);
-                    Assert.Equal(10.33m, lineItemOne.Cost);
+                    Assert.Equal(10.99m, lineItemOne.Cost);
                     Assert.Equal(4, lineItemOne.Quantity);
                     Assert.Equal("Banana", lineItemOne.Description);
                 },
                 lineItemTwo =>
                 {
                     Assert.Equal(2, lineItemTwo.InvoiceLineId);
-                    Assert.Equal(5.22m, lineItemTwo.Cost);
+                    Assert.Equal(5.21m, lineItemTwo.Cost);
                     Assert.Equal(1, lineItemTwo.Quantity);
                     Assert.Equal("Orange", lineItemTwo.Description);
                 },
@@ -136,13 +108,7 @@ namespace Xero.Accounting.Tests
         [Fact]
         public void GivenAnInvoiceWhenRequiredToMakeACopyThenCloneTheInvoice()
         {
-            _invoice.AddLineItem(new InvoiceLine
-            {
-                InvoiceLineId = 1,
-                Cost = 6.99m,
-                Quantity = 1,
-                Description = "Apple"
-            });
+            _invoice.AddLineItem(_appleLineItem);
 
             _invoice.AddLineItem(new InvoiceLine
             {
@@ -167,17 +133,27 @@ namespace Xero.Accounting.Tests
                 Number = 1000,
                 LineItems = new List<InvoiceLine>
                 {
-                    new InvoiceLine
-                    {
-                        InvoiceLineId = 1,
-                        Cost = 6.99m,
-                        Quantity = 1,
-                        Description = "Apple"
-                    }
+                    _appleLineItem
                 }
             };
 
-            Assert.Equal("InvoiceNumber: 1000, InvoiceDate: 01/28/2019, LineItemCount: 1", invoice.ToString());
+            const string expectedInvoiceString = "InvoiceNumber: 1000, InvoiceDate: 01/28/2019, LineItemCount: 1";
+
+            Assert.Equal(expectedInvoiceString, invoice.ToString());
+        }
+
+        private Invoice CreateInvoiceToMerge()
+        {
+            var invoiceToMerge = new Invoice();
+            invoiceToMerge.AddLineItem(_orangeLineItem);
+            invoiceToMerge.AddLineItem(new InvoiceLine
+            {
+                InvoiceLineId = 3,
+                Cost = 6.27m,
+                Quantity = 3,
+                Description = "Blueberries"
+            });
+            return invoiceToMerge;
         }
     }
 }
