@@ -24,18 +24,15 @@ namespace Xero.Accounting
 
         public void RemoveLineItemBy(int invoiceLineId)
         {
-            var itemToRemove = LineItems.Single(x => x.InvoiceLineId == invoiceLineId);
+            var itemToRemove = LineItems.Single(lineItem => lineItem.InvoiceLineId == invoiceLineId);
             LineItems.Remove(itemToRemove);
         }
 
         public decimal Total()
         {
             decimal invoiceTotal = 0;
-            foreach (var invoiceLineItem in LineItems)
-            {
-                invoiceTotal += invoiceLineItem.Total();
-            }
-
+            LineItems.ForEach(lineItem => invoiceTotal += lineItem.Total());
+            
             return invoiceTotal;
         }
 
