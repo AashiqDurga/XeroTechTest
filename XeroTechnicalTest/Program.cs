@@ -53,7 +53,7 @@ namespace XeroTechnicalTest
                 Description = "Apple"
             });
 
-            Console.WriteLine(invoice.GetTotal());
+            Console.WriteLine(invoice.Total());
         }
 
         private static void CreateInvoiceWithMultipleItemsAndQuantities()
@@ -84,7 +84,7 @@ namespace XeroTechnicalTest
                 Description = "Pineapple"
             });
 
-            Console.WriteLine(invoice.GetTotal());
+            Console.WriteLine(invoice.Total());
         }
 
         private static void RemoveItem()
@@ -107,8 +107,8 @@ namespace XeroTechnicalTest
                 Description = "Banana"
             });
 
-            invoice.RemoveInvoiceLine(1);
-            Console.WriteLine(invoice.GetTotal());
+            invoice.RemoveInvoiceLineBy(1);
+            Console.WriteLine(invoice.Total());
         }
 
         private static void MergeInvoices()
@@ -141,8 +141,8 @@ namespace XeroTechnicalTest
                 Description = "Blueberries"
             });
 
-            invoice1.MergeInvoices(invoice2);
-            Console.WriteLine(invoice1.GetTotal());
+            invoice1.MergeInvoicesFrom(invoice2);
+            Console.WriteLine(invoice1.Total());
         }
 
         private static void CloneInvoice()
@@ -166,7 +166,7 @@ namespace XeroTechnicalTest
             });
 
             var clonedInvoice = (Invoice)invoice.Clone();
-            Console.WriteLine(clonedInvoice.GetTotal());
+            Console.WriteLine(clonedInvoice.Total());
         }
 
         private static void InvoiceToString()

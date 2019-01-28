@@ -49,7 +49,7 @@ namespace Xero.Accounting.Tests
                 Description = "Banana"
             });
 
-            _invoice.RemoveInvoiceLine(1);
+            _invoice.RemoveInvoiceLineBy(1);
             Assert.Single(_invoice.LineItems);
             Assert.Equal(2, _invoice.LineItems.First().InvoiceLineId);
         }
@@ -74,7 +74,7 @@ namespace Xero.Accounting.Tests
             });
 
 
-            var total = _invoice.GetTotal();
+            var total = _invoice.Total();
             Assert.Equal(49.17m, total);
         }
 
@@ -107,7 +107,7 @@ namespace Xero.Accounting.Tests
                 Description = "Blueberries"
             });
 
-            _invoice.MergeInvoices(invoiceToMerge);
+            _invoice.MergeInvoicesFrom(invoiceToMerge);
 
             Assert.Collection(_invoice.LineItems,
                 lineItemOne =>
