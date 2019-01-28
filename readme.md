@@ -1,8 +1,14 @@
+# XeroTechnicalTes
 XeroTechnicalTest consists of a CSharp console application created using Visual Studio 2013.
 
 If you don't have Visual Studio available download the community edition from https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx
 
 Good luck!
+# Assumptions
+- This is purely a coding exercise to fix, add tests and refactor the solution. 
+- No CICD is required. 
+- The purpose of the private functions in Program.cs is to verify things work.
+
 
     Welcome to the Xero technical excercise!
     ---------------------------------------------------------------------------------
