@@ -37,7 +37,7 @@ namespace XeroTechnicalTest
             RemoveItem();
             MergeInvoices();
             CloneInvoice();
-//            InvoiceToString();
+            InvoiceToString();
         }
 
         private static void CreateInvoiceWithOneItem()

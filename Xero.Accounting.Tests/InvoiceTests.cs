@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using XeroTechnicalTest;
 using Xunit;
@@ -79,7 +81,7 @@ namespace Xero.Accounting.Tests
         {
             var invoice = new Invoice();
 
-            invoice.AddInvoiceLine(new InvoiceLine()
+            invoice.AddInvoiceLine(new InvoiceLine
             {
                 InvoiceLineId = 1,
                 Cost = 10.33,
@@ -89,7 +91,7 @@ namespace Xero.Accounting.Tests
 
             var invoice2 = new Invoice();
 
-            invoice2.AddInvoiceLine(new InvoiceLine()
+            invoice2.AddInvoiceLine(new InvoiceLine
             {
                 InvoiceLineId = 2,
                 Cost = 5.22,
@@ -97,7 +99,7 @@ namespace Xero.Accounting.Tests
                 Description = "Orange"
             });
 
-            invoice2.AddInvoiceLine(new InvoiceLine()
+            invoice2.AddInvoiceLine(new InvoiceLine
             {
                 InvoiceLineId = 3,
                 Cost = 6.27,
@@ -156,6 +158,29 @@ namespace Xero.Accounting.Tests
             
             clonedInvoice.Should().BeEquivalentTo(invoice);
             Assert.Equal(invoice.LineItems.Count, clonedInvoice.LineItems.Count);
+        }
+
+        [Fact]
+        public void GivenAnInvoiceWhenDisplayingInConsoleThenConvertToSting()
+        {
+            
+            var invoice = new Invoice
+            {
+                InvoiceDate = new DateTime(2019,01,28),
+                InvoiceNumber = 1000,
+                LineItems = new List<InvoiceLine>
+                {
+                    new InvoiceLine
+                    {
+                        InvoiceLineId = 1,
+                        Cost = 6.99,
+                        Quantity = 1,
+                        Description = "Apple"
+                    }
+                }
+            };
+
+            Assert.Equal("InvoiceNumber: 1000, InvoiceDate: 01/28/2019, LineItemCount: 1", invoice.ToString());
         }
     }
 }

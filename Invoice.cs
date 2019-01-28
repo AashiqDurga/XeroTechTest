@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace XeroTechnicalTest
 {
@@ -66,7 +67,13 @@ namespace XeroTechnicalTest
         /// </summary>
         public override string ToString()
         {
-            throw new NotImplementedException();
+            var sting = new StringBuilder();
+
+            sting.Append($"InvoiceNumber: {InvoiceNumber}, ");
+            sting.Append($"InvoiceDate: {InvoiceDate:d}, ");
+            sting.Append($"LineItemCount: {LineItems.Count}");
+
+            return sting.ToString();
         }
     }
 }
