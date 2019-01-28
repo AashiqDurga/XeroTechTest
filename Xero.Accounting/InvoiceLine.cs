@@ -1,4 +1,4 @@
-﻿namespace XeroTechnicalTest
+﻿namespace Xero.Accounting
 {
     public class InvoiceLine
     {

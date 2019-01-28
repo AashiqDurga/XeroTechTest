@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using XeroTechnicalTest;
 using Xunit;
 
 namespace Xero.Accounting.Tests
