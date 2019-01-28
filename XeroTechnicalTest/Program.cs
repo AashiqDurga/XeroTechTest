@@ -45,10 +45,10 @@ namespace XeroTechnicalTest
         {
             var invoice = new Invoice();
 
-            invoice.AddInvoiceLine(new InvoiceLine
+            invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 6.99,
+                Cost = 6.99m,
                 Quantity = 1,
                 Description = "Apple"
             });
@@ -60,26 +60,26 @@ namespace XeroTechnicalTest
         {
             var invoice = new Invoice();
 
-            invoice.AddInvoiceLine(new InvoiceLine
+            invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 10.21,
+                Cost = 10.21m,
                 Quantity = 4,
                 Description = "Banana"
             });
 
-            invoice.AddInvoiceLine(new InvoiceLine
+            invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 2,
-                Cost = 5.21,
+                Cost = 5.21m,
                 Quantity = 1,
                 Description = "Orange"
             });
 
-            invoice.AddInvoiceLine(new InvoiceLine
+            invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 3,
-                Cost = 5.21,
+                Cost = 5.21m,
                 Quantity = 5,
                 Description = "Pineapple"
             });
@@ -91,23 +91,23 @@ namespace XeroTechnicalTest
         {
             var invoice = new Invoice();
 
-            invoice.AddInvoiceLine(new InvoiceLine
+            invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 5.21,
+                Cost = 5.21m,
                 Quantity = 1,
                 Description = "Orange"
             });
 
-            invoice.AddInvoiceLine(new InvoiceLine
+            invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 2,
-                Cost = 10.99,
+                Cost = 10.99m,
                 Quantity = 4,
                 Description = "Banana"
             });
 
-            invoice.RemoveInvoiceLineBy(1);
+            invoice.RemoveLineItemBy(1);
             Console.WriteLine(invoice.Total());
         }
 
@@ -115,28 +115,28 @@ namespace XeroTechnicalTest
         {
             var invoice1 = new Invoice();
 
-            invoice1.AddInvoiceLine(new InvoiceLine
+            invoice1.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 10.33,
+                Cost = 10.33m,
                 Quantity = 4,
                 Description = "Banana"
             });
 
             var invoice2 = new Invoice();
 
-            invoice2.AddInvoiceLine(new InvoiceLine
+            invoice2.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 2,
-                Cost = 5.22,
+                Cost = 5.22m,
                 Quantity = 1,
                 Description = "Orange"
             });
 
-            invoice2.AddInvoiceLine(new InvoiceLine
+            invoice2.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 3,
-                Cost = 6.27,
+                Cost = 6.27m,
                 Quantity = 3,
                 Description = "Blueberries"
             });
@@ -149,18 +149,18 @@ namespace XeroTechnicalTest
         {
             var invoice = new Invoice();
 
-            invoice.AddInvoiceLine(new InvoiceLine
+            invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 6.99,
+                Cost = 6.99m,
                 Quantity = 1,
                 Description = "Apple"
             });
 
-            invoice.AddInvoiceLine(new InvoiceLine
+            invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 2,
-                Cost = 6.27,
+                Cost = 6.27m,
                 Quantity = 3,
                 Description = "Blueberries"
             });
@@ -173,14 +173,14 @@ namespace XeroTechnicalTest
         {
             var invoice = new Invoice
             {
-                InvoiceDate = DateTime.Now,
-                InvoiceNumber = 1000,
+                Date = DateTime.Now,
+                Number = 1000,
                 LineItems = new List<InvoiceLine>
                 {
                     new InvoiceLine
                     {
                         InvoiceLineId = 1,
-                        Cost = 6.99,
+                        Cost = 6.99m,
                         Quantity = 1,
                         Description = "Apple"
                     }

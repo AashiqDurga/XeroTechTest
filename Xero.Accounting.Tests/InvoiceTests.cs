@@ -21,11 +21,11 @@ namespace Xero.Accounting.Tests
             var invoiceLine = new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 6.99,
+                Cost = 6.99m,
                 Quantity = 1,
                 Description = "Apple"
             };
-            _invoice.AddInvoiceLine(invoiceLine);
+            _invoice.AddLineItem(invoiceLine);
 
             Assert.Single(_invoice.LineItems);
         }
@@ -33,23 +33,23 @@ namespace Xero.Accounting.Tests
         [Fact]
         public void GivenAnInvoiceWithItemsWhenAnItemIsDeletedThenRemoveItFromTheInvoice()
         {
-            _invoice.AddInvoiceLine(new InvoiceLine
+            _invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 5.21,
+                Cost = 5.21m,
                 Quantity = 1,
                 Description = "Orange"
             });
 
-            _invoice.AddInvoiceLine(new InvoiceLine
+            _invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 2,
-                Cost = 10.99,
+                Cost = 10.99m,
                 Quantity = 4,
                 Description = "Banana"
             });
 
-            _invoice.RemoveInvoiceLineBy(1);
+            _invoice.RemoveLineItemBy(1);
             Assert.Single(_invoice.LineItems);
             Assert.Equal(2, _invoice.LineItems.First().InvoiceLineId);
         }
@@ -57,18 +57,18 @@ namespace Xero.Accounting.Tests
         [Fact]
         public void GivenAnInvoiceWithItemsWhenGeneratingTheInvoiceThenCalculateTheTotal()
         {
-            _invoice.AddInvoiceLine(new InvoiceLine
+            _invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 5.21,
+                Cost = 5.21m,
                 Quantity = 1,
                 Description = "Orange"
             });
 
-            _invoice.AddInvoiceLine(new InvoiceLine
+            _invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 2,
-                Cost = 10.99,
+                Cost = 10.99m,
                 Quantity = 4,
                 Description = "Banana"
             });
@@ -81,28 +81,28 @@ namespace Xero.Accounting.Tests
         [Fact]
         public void GivenTwoInvoicesWhenGeneratingThenMergeTheInvoices()
         {
-            _invoice.AddInvoiceLine(new InvoiceLine
+            _invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 10.33,
+                Cost = 10.33m,
                 Quantity = 4,
                 Description = "Banana"
             });
 
             var invoiceToMerge = new Invoice();
 
-            invoiceToMerge.AddInvoiceLine(new InvoiceLine
+            invoiceToMerge.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 2,
-                Cost = 5.22,
+                Cost = 5.22m,
                 Quantity = 1,
                 Description = "Orange"
             });
 
-            invoiceToMerge.AddInvoiceLine(new InvoiceLine
+            invoiceToMerge.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 3,
-                Cost = 6.27,
+                Cost = 6.27m,
                 Quantity = 3,
                 Description = "Blueberries"
             });
@@ -113,21 +113,21 @@ namespace Xero.Accounting.Tests
                 lineItemOne =>
                 {
                     Assert.Equal(1, lineItemOne.InvoiceLineId);
-                    Assert.Equal(10.33, lineItemOne.Cost);
+                    Assert.Equal(10.33m, lineItemOne.Cost);
                     Assert.Equal(4, lineItemOne.Quantity);
                     Assert.Equal("Banana", lineItemOne.Description);
                 },
                 lineItemTwo =>
                 {
                     Assert.Equal(2, lineItemTwo.InvoiceLineId);
-                    Assert.Equal(5.22, lineItemTwo.Cost);
+                    Assert.Equal(5.22m, lineItemTwo.Cost);
                     Assert.Equal(1, lineItemTwo.Quantity);
                     Assert.Equal("Orange", lineItemTwo.Description);
                 },
                 lineItemThree =>
                 {
                     Assert.Equal(3, lineItemThree.InvoiceLineId);
-                    Assert.Equal(6.27, lineItemThree.Cost);
+                    Assert.Equal(6.27m, lineItemThree.Cost);
                     Assert.Equal(3, lineItemThree.Quantity);
                     Assert.Equal("Blueberries", lineItemThree.Description);
                 });
@@ -136,18 +136,18 @@ namespace Xero.Accounting.Tests
         [Fact]
         public void GivenAnInvoiceWhenRequiredToMakeACopyThenCloneTheInvoice()
         {
-            _invoice.AddInvoiceLine(new InvoiceLine
+            _invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 1,
-                Cost = 6.99,
+                Cost = 6.99m,
                 Quantity = 1,
                 Description = "Apple"
             });
 
-            _invoice.AddInvoiceLine(new InvoiceLine
+            _invoice.AddLineItem(new InvoiceLine
             {
                 InvoiceLineId = 2,
-                Cost = 6.27,
+                Cost = 6.27m,
                 Quantity = 3,
                 Description = "Blueberries"
             });
@@ -163,14 +163,14 @@ namespace Xero.Accounting.Tests
         {
             var invoice = new Invoice
             {
-                InvoiceDate = new DateTime(2019, 01, 28),
-                InvoiceNumber = 1000,
+                Date = new DateTime(2019, 01, 28),
+                Number = 1000,
                 LineItems = new List<InvoiceLine>
                 {
                     new InvoiceLine
                     {
                         InvoiceLineId = 1,
-                        Cost = 6.99,
+                        Cost = 6.99m,
                         Quantity = 1,
                         Description = "Apple"
                     }

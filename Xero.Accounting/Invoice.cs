@@ -12,17 +12,17 @@ namespace Xero.Accounting
             LineItems = new List<InvoiceLine>();
         }
 
-        public int InvoiceNumber { get; set; }
-        public DateTime InvoiceDate { get; set; }
+        public int Number { private get; set; }
+        public DateTime Date { private get; set; }
 
         public List<InvoiceLine> LineItems { get; set; }
 
-        public void AddInvoiceLine(InvoiceLine invoiceLine)
+        public void AddLineItem(InvoiceLine invoiceLine)
         {
             LineItems.Add(invoiceLine);
         }
 
-        public void RemoveInvoiceLineBy(int invoiceLineId)
+        public void RemoveLineItemBy(int invoiceLineId)
         {
             var itemToRemove = LineItems.Single(x => x.InvoiceLineId == invoiceLineId);
             LineItems.Remove(itemToRemove);
@@ -30,13 +30,13 @@ namespace Xero.Accounting
 
         public decimal Total()
         {
-            double invoiceTotal = 0;
+            decimal invoiceTotal = 0;
             foreach (var invoiceLineItem in LineItems)
             {
-                invoiceTotal = invoiceTotal + invoiceLineItem.Total();
+                invoiceTotal += invoiceLineItem.Total();
             }
-            
-            return (decimal) invoiceTotal;
+
+            return invoiceTotal;
         }
 
         public void MergeInvoicesFrom(Invoice sourceInvoice)
@@ -53,8 +53,8 @@ namespace Xero.Accounting
         {
             var invoiceSting = new StringBuilder();
 
-            invoiceSting.Append($"InvoiceNumber: {InvoiceNumber}, ");
-            invoiceSting.Append($"InvoiceDate: {InvoiceDate:d}, ");
+            invoiceSting.Append($"InvoiceNumber: {Number}, ");
+            invoiceSting.Append($"InvoiceDate: {Date:d}, ");
             invoiceSting.Append($"LineItemCount: {LineItems.Count}");
 
             return invoiceSting.ToString();
